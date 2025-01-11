@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     'rolepermissions',
-    'users',  
+    'users',
+    'payments',  
 ]
 
 AUTH_USER_MODEL = 'users.User'

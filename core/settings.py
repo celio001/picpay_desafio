@@ -127,3 +127,6 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+#AUTHORIZE_TRANSFER_ENDPOINT = 'https://run.mocky.io/v3/59158828-bd47-4604-857c-e8aeb47603df' #Error
+AUTHORIZE_TRANSFER_ENDPOINT = 'https://run.mocky.io/v3/215fff17-8931-4686-a160-3a7d9714a18a' #Sucess

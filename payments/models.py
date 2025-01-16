@@ -10,4 +10,4 @@ class Transactions(models.Model):
     date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f' from {self.payer.first_name} to {self.payee.first_name} = R% {self.amount}'
+        return f' from {self.payer.first_name} to {self.payee.first_name} = R$ {self.amount}'

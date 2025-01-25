@@ -7,6 +7,8 @@ from django.db import transaction as django_transaction
 import requests
 from django.conf import settings
 from .models import Transactions
+from .tasks import enviar_email
+
 
 payments_router = Router()
 
@@ -37,14 +39,15 @@ def transaction(request, transaction: TransactionSchema):
         payee.save()
         transct.save()
 
-        response1 = requests.get(settings.AUTHORIZE_TRANSFER_ENDPOINT)
+        #response1 = requests.get(settings.AUTHORIZE_TRANSFER_ENDPOINT)
         response = requests.get(settings.AUTHORIZE_TRANSFER_ENDPOINT).json()
-        print("Resposta do endpoint:", response1.text)  # Mostra o conteúdo exato da resposta
+        #print("Resposta do endpoint:", response1.text)  # Mostra o conteúdo exato da resposta
         
         if response.get('status') != 'authorized':
             raise Exception()
 
     # Retornar dados simulados da transação
+    enviar_email.delay()
     return 200, {
         "amount": transaction.amount,
         "payer_id": payer.id,

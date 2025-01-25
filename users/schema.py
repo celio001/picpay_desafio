@@ -6,6 +6,11 @@ class UserSchema(ModelSchema):
         model = User
         fields = ['username', 'first_name', 'last_name', 'cpf', 'email', 'password']
 
+class UserLoginSchema(ModelSchema):
+    class Meta:
+        model = User
+        fields = ['username', 'password']
+
 class TypeSchema(Schema):
     type: str
 

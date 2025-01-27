@@ -8,11 +8,12 @@ import requests
 from django.conf import settings
 from .models import Transactions
 from .tasks import enviar_email
+from core.auth import JWTAuth
 
 
 payments_router = Router()
 
-@payments_router.post('/', response={200: TransactionSchema, 400: dict, 403: dict})
+@payments_router.post('/', response={200: TransactionSchema, 400: dict, 403: dict}, auth=JWTAuth())
 def transaction(request, transaction: TransactionSchema):
     payer = get_object_or_404(User, id=transaction.payer)
     payee = get_object_or_404(User, id=transaction.payee)

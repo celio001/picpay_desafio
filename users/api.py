@@ -38,7 +38,7 @@ def login(request, user_schema: UserLoginSchema):
                              username=user_schema.username,
                              password=user_schema.password)
     
-    if not user:
+    if not user: 
         return 401, {'Error': 'Email ou senha invalidos'}
     
     expiration_time = datetime.now() + timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE)

@@ -12,7 +12,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-ffiw=g&cf3*_t2w*1828+q911w94_kiy3rf1fq1tnl87g-d@(!"
+SECRET_KEY = f'{os.getenv("SECRET_KEY")}'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -121,8 +121,8 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 #Mocky de dados
-#AUTHORIZE_TRANSFER_ENDPOINT = 'https://run.mocky.io/v3/59158828-bd47-4604-857c-e8aeb47603df' #Error
-AUTHORIZE_TRANSFER_ENDPOINT = 'https://run.mocky.io/v3/a0f0d573-509a-4b76-91c2-35c1869e16b7' #Sucess
+#AUTHORIZE_TRANSFER_ENDPOINT = f'{os.getenv("AUTHORIZE_TRANSFER_ENDPOINT_ERROR")} #Error
+AUTHORIZE_TRANSFER_ENDPOINT = f'{os.getenv("AUTHORIZE_TRANSFER_ENDPOINT_SUCCESS")}' #Sucess
 
 
 CELERY_BROKER_URL = f'REDIS://{os.getenv("REDIS")}'

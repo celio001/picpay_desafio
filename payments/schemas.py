@@ -1,7 +1,8 @@
 from ninja import ModelSchema, Schema
 from .models import Transactions
+from decimal import Decimal
 
-class TransactionSchema(ModelSchema):
-    class Meta:
-        model = Transactions
-        exclude = ['id', 'date']
+class TransactionSchema(Schema):
+    amount: Decimal
+    payer_id: int
+    wallet_id: str

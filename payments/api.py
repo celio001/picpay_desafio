@@ -13,10 +13,10 @@ from core.auth import JWTAuth
 
 payments_router = Router()
 
-@payments_router.post('/', response={200: TransactionSchema, 400: dict, 403: dict}, auth=JWTAuth())
+@payments_router.post('/', response={200: dict, 400: dict, 403: dict}, auth=JWTAuth())
 def transaction(request, transaction: TransactionSchema):
-    payer = get_object_or_404(User, id=transaction.payer)
-    payee = get_object_or_404(User, id=transaction.payee)
+    payer = get_object_or_404(User, id=transaction.payer_id)
+    payee = get_object_or_404(User, wallet_id=transaction.wallet_id)
 
     if payer.amount < transaction.amount:
         return 400, {'error': 'Saldo insuficiente'}
@@ -33,8 +33,8 @@ def transaction(request, transaction: TransactionSchema):
 
         transct = Transactions(
             amount=transaction.amount,
-            payer_id=transaction.payer,
-            payee_id=transaction.payee
+            payer_id=transaction.payer_id,
+            payee=payee
         )
         payer.save()
         payee.save()
@@ -48,7 +48,7 @@ def transaction(request, transaction: TransactionSchema):
             raise Exception()
 
     # Retornar dados simulados da transação
-    enviar_email.delay()
+    #enviar_email.delay()
     return 200, {
         "amount": transaction.amount,
         "payer_id": payer.id,

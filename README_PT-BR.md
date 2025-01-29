@@ -35,25 +35,9 @@ Este projeto é uma API RESTful desenvolvida como parte de um desafio técnico p
 ### 4. Notificação de Transferências
 - Envio de notificações utilizando Celery para garantir a escalabilidade e tratar instabilidades no serviço de notificações.
 
-## Estrutura do Projeto
+## Arquitetura do Projeto
 
-```
-project/
-|-- users/
-|   |-- models.py       # Modelos de usuários
-|   |-- api.py          # Endpoints relacionados a usuários
-|
-|-- payments/
-|   |-- models.py       # Modelos de pagamentos
-|   |-- api.py          # Endpoints relacionados a transferências
-|
-|-- core/
-|   |-- settings.py     # Configurações do Django
-|   |-- urls.py         # Roteamento principal
-|
-|-- auth.py             # Implementação da autenticação JWT
-|-- tasks.py            # Tarefas assíncronas com Celery
-```
+![backend](arquiteture.png)
 
 ## Endpoints Disponíveis
 

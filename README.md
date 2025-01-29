@@ -37,22 +37,7 @@ This project is a RESTful API developed as part of a technical challenge to crea
 
 ## Project Structure
 
-```
-project/
-|-- users/
-| |-- models.py # User models
-| |-- api.py # Endpoints related to users
-|
-|-- payments/
-| |-- models.py # Payment models
-| |-- api.py # Endpoints related to transfers
-|
-|-- core/
-| |-- settings.py # Django settings
-| |-- urls.py # Main routing
-| |-- auth.py # Implementing JWT authentication
-|-- tasks.py # Asynchronous tasks with Celery
-```
+![backend](arquiteture.png)
 
 ## Available Endpoints
 

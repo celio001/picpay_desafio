@@ -7,7 +7,7 @@ from django.db import transaction as django_transaction
 import requests
 from django.conf import settings
 from .models import Transactions
-from .tasks import enviar_email
+from .tasks import enviar_email, transfer
 from core.auth import JWTAuth
 
 
@@ -27,28 +27,10 @@ def transaction(request, transaction: TransactionSchema):
     if not has_permission(payee, 'receive_transfer'):
         return 403, {'error': 'O usuario não possui permissão para receber transferência'}
     
-    with django_transaction.atomic():
-        payer.pay(transaction.amount)
-        payee.receive(transaction.amount)
-
-        transct = Transactions(
-            amount=transaction.amount,
-            payer_id=transaction.payer_id,
-            payee=payee
-        )
-        payer.save()
-        payee.save()
-        transct.save()
-
-        #response1 = requests.get(settings.AUTHORIZE_TRANSFER_ENDPOINT)
-        response = requests.get(settings.AUTHORIZE_TRANSFER_ENDPOINT).json()
-        #print("Resposta do endpoint:", response1.text)  # Mostra o conteúdo exato da resposta
-        
-        if response.get('status') != 'authorized':
-            raise Exception()
+    transfer.delay(payer.id,payee.id,transaction.amount, transaction.payer_id)
 
     # Retornar dados simulados da transação
-    #enviar_email.delay()
+    enviar_email.delay()
     return 200, {
         "amount": transaction.amount,
         "payer_id": payer.id,
